@@ -1,33 +1,33 @@
 {
   "name": "speaktoearn-agent",
   "version": "1.0.0",
-  "description": "Custom Celo Composer project.",
+  "description": "A decentralized application that rewards users for completing speaking tasks with AI evaluation and blockchain-based payments on the Celo network.",
   "private": true,
   "author": "TheAlexYao",
   "license": "MIT",
   "scripts": {
-    "react-app:dev": "yarn workspace @celo-composer-minipay-template/react-app dev",
-    "react-app:build": "yarn workspace @celo-composer-minipay-template/react-app build",
-    "react-app:start": "yarn workspace @celo-composer-minipay-template/react-app start",
-    "react-app:lint": "yarn workspace @celo-composer-minipay-template/react-app lint"
+    "frontend:dev": "yarn workspace @speaktoearn/frontend dev",
+    "frontend:build": "yarn workspace @speaktoearn/frontend build",
+    "frontend:start": "yarn workspace @speaktoearn/frontend start",
+    "frontend:lint": "yarn workspace @speaktoearn/frontend lint",
+    "backend:dev": "yarn workspace @speaktoearn/backend dev",
+    "backend:build": "yarn workspace @speaktoearn/backend build",
+    "backend:start": "yarn workspace @speaktoearn/backend start",
+    "contracts:compile": "yarn workspace @speaktoearn/contracts compile",
+    "contracts:deploy:alfajores": "yarn workspace @speaktoearn/contracts deploy:alfajores",
+    "contracts:test": "yarn workspace @speaktoearn/contracts test",
+    "dev": "yarn workspaces foreach -pi run dev",
+    "build": "yarn workspaces foreach -pi run build",
+    "test": "yarn workspaces foreach -pi run test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/celo-org/celo-composer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/celo-org/celo-composer/issues"
-  },
-  "homepage": "https://github.com/celo-org/celo-composer/blob/main/README.md",
   "workspaces": [
-    "packages/*",
-    "hardhat/*"
+    "packages/*"
   ],
   "keywords": [
-    "celo-composer",
-    "celo"
-  ],
-  "devDependencies": {
-    "@types/uuid": "^10.0.0"
-  }
+    "celo",
+    "blockchain",
+    "ai",
+    "speech",
+    "smart-contracts"
+  ]
 }

@@ -2,10 +2,16 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/api';
 
+import { AgentThought, AgentAction, CriteriaScores } from '../types/evaluation';
+
 export interface EvaluationResult {
   decision: 'Pass' | 'Fail';
   score: number;
   feedback: string;
+  criteriaScores?: CriteriaScores;
+  agentThoughts?: AgentThought[];
+  agentActions?: AgentAction[];
+  payment?: PaymentResult | { error: string };
 }
 
 export interface PaymentResult {
@@ -26,9 +32,10 @@ const api = axios.create({
 
 export const evaluateSubmission = async (
   text: string,
-  taskType: TaskType
+  taskType: TaskType,
+  walletAddress: string
 ): Promise<EvaluationResult> => {
-  const response = await api.post('/evaluate', { text, taskType });
+  const response = await api.post('/evaluate', { text, taskType, walletAddress });
   return response.data;
 };
 

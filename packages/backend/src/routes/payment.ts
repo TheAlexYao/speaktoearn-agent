@@ -1,26 +1,40 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import { processPayment } from '../services/paymentService';
+
+interface PaymentRequest {
+  recipientAddress: string;
+  taskId: string;
+}
 
 const router = Router();
 
-router.post('/process', async (req, res) => {
+const handlePayment: express.RequestHandler = async (req, res, next) => {
   try {
-    const { recipientAddress, taskId } = req.body;
+    const { recipientAddress, taskId } = req.body as PaymentRequest;
     
     if (!recipientAddress || !taskId) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         error: 'Missing required fields: recipientAddress and taskId' 
       });
+      return;
     }
 
     const result = await processPayment(recipientAddress, taskId);
     res.json(result);
   } catch (error) {
     console.error('Payment error:', error);
-    res.status(500).json({ 
-      error: 'Error processing payment' 
-    });
+    if (error instanceof Error) {
+      res.status(500).json({ 
+        error: error.message || 'Error processing payment'
+      });
+    } else {
+      res.status(500).json({ 
+        error: 'Unknown error processing payment'
+      });
+    }
   }
-});
+};
+
+router.post('/process', handlePayment);
 
 export const paymentRouter = router;

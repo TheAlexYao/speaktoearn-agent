@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import ChatMessage from './components/ChatMessage'
 import ChatInput from './components/ChatInput'
+import ChatMessage from './components/ChatMessage'
 import BlockchainSteps from './components/BlockchainSteps'
+import { WalletConnect } from './components/WalletConnect'
 import { ChatProvider, useChat } from './contexts/ChatContext'
 import { BlockchainProvider } from './contexts/BlockchainContext'
 
@@ -16,8 +17,9 @@ function Chat() {
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4">
+        <div className="max-w-7xl mx-auto py-6 px-4 relative">
           <h1 className="text-3xl font-bold text-gray-900">SpeakToEarn AI Agent</h1>
+          <WalletConnect />
         </div>
       </header>
 

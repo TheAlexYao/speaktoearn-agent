@@ -4,11 +4,15 @@ export interface CriteriaScores {
   completeness: number;
 }
 
+import { AgentThought, AgentAction } from './blockchain';
+
 export interface EvaluationResult {
   decision: 'Pass' | 'Fail';
   score: number;
   feedback: string;
   criteriaScores: CriteriaScores;
+  agentThoughts?: AgentThought[];
+  agentActions?: AgentAction[];
 }
 
 export interface PaymentResult {

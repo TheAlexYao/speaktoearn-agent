@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/alexanderyao/Code/Hackathons/celo/speaktoearn-agent/packages/contracts/contracts/SpeakToEarn.sol": {
+      "lastModificationDate": 1739417746470,
+      "contentHash": "32f40435365f1e92386e7d87157e4ba8",
+      "sourceName": "contracts/SpeakToEarn.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SpeakToEarn"
+      ]
+    }
+  }
+}

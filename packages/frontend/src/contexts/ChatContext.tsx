@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { evaluateSubmission, processPayment, TaskType, EvaluationResult } from '../services/api';
+import { evaluateSubmission, processPayment, TaskType } from '../services/api';
+import { EvaluationResult, AgentThought } from '../types/evaluation';
+import { ethers } from 'ethers';
 
 interface Message {
   content: string;
@@ -67,27 +69,38 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsProcessing(true);
 
     try {
+      // Get connected wallet address
+      const ethereum = window.ethereum;
+      if (!ethereum) {
+        throw new Error('No ethereum provider found');
+      }
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const accounts = await provider.listAccounts();
+      if (!accounts[0]) {
+        throw new Error('Please connect your wallet first');
+      }
+      const walletAddress = accounts[0];
+
       // Evaluate submission
-      const result: EvaluationResult = await evaluateSubmission(content, selectedTask);
+      const result: EvaluationResult = await evaluateSubmission(content, selectedTask, walletAddress);
       
       // Add evaluation result message
       setMessages(prev => [
         ...prev,
         {
-          content: `Evaluation Result:\nDecision: ${result.decision}\nScore: ${result.score}\nFeedback: ${result.feedback}`,
+          content: `Evaluation Result:\nDecision: ${result.decision}\nScore: ${result.score}\n\nCriteria Scores:${result.criteriaScores ? `\nAccuracy: ${result.criteriaScores.accuracy}/100\nClarity: ${result.criteriaScores.clarity}/100\nCompleteness: ${result.criteriaScores.completeness}/100` : '\nNo detailed scores available'}\n\nFeedback: ${result.feedback}\n\nAI Agent Thoughts:${result.agentThoughts?.map((t: AgentThought) => `\n\nThought: ${t.thought}\nReasoning: ${t.reasoning}${t.plan ? `\nPlan:\n${t.plan.map(p => `- ${p}`).join('\n')}` : ''}${t.criticism ? `\nCriticism: ${t.criticism}` : ''}${t.improvement ? `\nImprovement: ${t.improvement}` : ''}`).join('') || '\nNo agent thoughts recorded.'}`,
           isUser: false,
         },
       ]);
 
-      // If passed, process payment (mock address for demo)
+      // If passed, process payment
       if (result.decision === 'Pass') {
-        const mockAddress = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e';
-        const paymentResult = await processPayment(mockAddress, Date.now().toString());
+        const paymentResult = await processPayment(walletAddress, Date.now().toString());
         
         setMessages(prev => [
           ...prev,
           {
-            content: `Payment processed!\nTransaction Hash: ${paymentResult.transactionHash}\nAmount: ${paymentResult.amount} tokens`,
+            content: `Payment processed!\nTransaction Hash: ${paymentResult.transactionHash}\nView on Celoscan: https://alfajores.celoscan.io/tx/${paymentResult.transactionHash}\nAmount: ${ethers.utils.formatEther(paymentResult.amount)} CELO`,
             isUser: false,
           },
           {
