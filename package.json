@@ -26,5 +26,8 @@
   "keywords": [
     "celo-composer",
     "celo"
-  ]
+  ],
+  "devDependencies": {
+    "@types/uuid": "^10.0.0"
+  }
 }

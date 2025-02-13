@@ -6,7 +6,7 @@ Below is a concise Product Requirements Document (PRD) tailored for your MVP dem
 
 ## 1. Overview
 
-**Product Name:** Crowdsourced Language Data Contribution MVP  
+**Product Name:** SpeakToEarn Agent
 **Description:**  
 A demo platform where users contribute high‑quality text data via a chat-based interface. Contributions are evaluated by an AI (using GPT‑4o with function calling) against preset criteria. If the submission passes, a smart contract on the Celo Alfajores testnet automatically triggers a token payment. The MVP focuses on two tasks:
 - Paraphrase a financial report sentence.

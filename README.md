@@ -1,27 +1,104 @@
-<!-- TITLE -->
-<p align="center">
-  <img width="100px" src="https://github.com/celo-org/celo-composer/blob/main/images/readme/celo_isotype.svg" align="center" alt="Celo" />
- <h2 align="center">Celo Composer - MiniPay Template</h2>
- <p align="center">Build, deploy, and iterate quickly on decentralized applications using Celo for MiniPay.</p>
-</p>
-  <p align="center">
-    <a href="https://github.com/celo-org/celo-composer/graphs/stars">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/stars/celo-org/celo-composer?color=FCFF52" />
-    </a>
-    <a href="https://github.com/celo-org/celo-composer/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/celo-org/celo-composer?color=E7E3D4" />
-    </a>
-    <a href="https://github.com/celo-org/celo-composer/issues">
-      <img alt="Issues" src="https://img.shields.io/github/issues/celo-org/celo-composer?color=E7E3D4" />
-    </a>
-    <a href="https://github.com/celo-org/celo-composer/pulls">
-      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/celo-org/celo-composer?color=E7E3D4" />
-    </a>
-    <a href="https://opensource.org/license/mit/">
-      <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-    </a>
-  </p>
-</p>
+# Speak to Earn Agent
+
+A decentralized application that rewards users for completing speaking tasks with AI evaluation and blockchain-based payments.
+
+## Prerequisites
+
+- Node.js v18+ and npm
+- OpenAI API key
+- Celo wallet (e.g., MetaMask with Celo network)
+
+## Project Structure
+
+```
+packages/
+  ├── backend/         # Express.js backend server
+  ├── contracts/       # Solidity smart contracts
+  └── frontend/        # React frontend application
+```
+
+## Setup & Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd speaktoearn-agent
+```
+
+2. Install dependencies for all packages:
+```bash
+npm install
+cd packages/frontend && npm install
+cd ../backend && npm install
+cd ../contracts && npm install
+```
+
+3. Set up environment variables:
+
+Create `.env` files in both backend and frontend directories:
+
+```bash
+# packages/backend/.env
+OPENAI_API_KEY=your_openai_api_key
+PORT=3000
+
+# packages/frontend/.env
+VITE_BACKEND_URL=http://localhost:3000
+```
+
+## Running the Application
+
+You need to run three components simultaneously:
+
+1. **Smart Contract (Local Network)**:
+```bash
+cd packages/contracts
+npx hardhat node  # Run in terminal 1
+npx hardhat run scripts/deploy.ts --network localhost  # Run in terminal 2
+```
+
+2. **Backend Server**:
+```bash
+cd packages/backend
+npm run dev  # Run in terminal 3
+```
+
+3. **Frontend Application**:
+```bash
+cd packages/frontend
+npm run dev  # Run in terminal 4
+```
+
+The application will be available at:
+- Frontend: http://localhost:5173 (or next available port)
+- Backend: http://localhost:3000
+- Hardhat Network: http://localhost:8545
+
+## Testing
+
+To run tests for each package:
+
+```bash
+# Smart Contract Tests
+cd packages/contracts
+npm test
+
+# Backend Tests
+cd packages/backend
+npm test
+
+# Frontend Tests
+cd packages/frontend
+npm test
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
 
 <!-- TABLE OF CONTENTS -->
 
